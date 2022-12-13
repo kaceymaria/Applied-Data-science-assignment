@@ -171,22 +171,109 @@ title = 'Access to electricity (% of population)'
 # the above attribute are passed into the function to give desired plot
 multiple_line_plot(x_data, y_data, xlabel, ylabel, title, labels, colors)
 
+#Grouped bar chart for population growth
+def Grouped_barplot(data, title):
+    """
+    This function defines a grouped barplot, below are the attributes:
+    arraylabel: The labels of barplot for x-axis which takes countries of preferred indicator
+    width: This is the size of the bar
+    y_data: These are data to be plotted
+    ylabel: label for y-axis
+    title:  shows the title of the plot
+    labels: these are the labels of each line plot y the legend function
+    
+    """
+    # Set the title of the plot
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.rcParams["figure.dpi"] = 1000
+    plt.legend(bbox_to_anchor=(1,1))
+    
+    # Show the plot
+    plt.show()
+
+Data = cout_pop_growth
+Data.plot(kind='bar')
+xlabel = 'countries'
+ylabel = 'population Growth'
+# Plot a grouped barplot for the population growth 
+Grouped_barplot(Data, 'Grouped barplot for population Growth')
+
+#plotting a grouped bar chart for mortality rate for the countries; Angola,Ghana,Nigeria,Vietnam and cameroon from 2010 t0 2020
+Data = cout_urb_pop
+#plots a barplot
+Data.plot(kind='bar')
+xlabel = 'Countries'
+ylabel = 'Urban Population'
+Grouped_barplot(Data, 'Grouped barplot for urban Population')
+
+#population growth for Ghana
+print(year_pop_growth['Ghana'])
+#gets dataframe for a country
+Ghana = pd.DataFrame(
+{'Population growth (annual %)': year_pop_growth['Ghana'],
+'Cereal yield (kg per hectare)': year_cereal_yield['Ghana'], 
+'Access to electricity (% of population)': year_access_elect['Ghana'],
+'Mortality rate, under-5 (per 1,000 live births)': year_mort_rate['Ghana'],
+'Methane emissions (kt of CO2 equivalent)': year_Meth_emissions['Ghana'],
+'Urban population': year_urb_pop['Ghana']},
+['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020'])
+print()
+
+#prints correlation
+print(Ghana.corr())
+
+def heatmap_corr(Ghana, size=8):
+    """
+    
+    function creates heatmap of correlation matrix for earch pair of columns in the dataframe for ghana against
+    the indicators selected
+
+Input:
+     df(Ghana): Transposed Dataframe for Ghana
+     size: vertical and horizontal size of the plot (inch)
+
+"""
+#plots heatmap
+corr = Ghana.corr()
+fig, ax = plt.subplots(figsize=(10,5))
+ax.matshow(corr, cmap='coolwarm')
+#setting ticks to column names
+plt.xticks(range(len(corr.columns)), corr.columns, rotation=90)
+plt.yticks(range(len(corr.columns)), corr.columns)
+plt.show()
+
+#gets dataframe for a single coutry
+Nigeria = pd.DataFrame(
+{'Population growth (annual %)': year_pop_growth['Nigeria'],
+'Cereal yield (kg per hectare)': year_cereal_yield['Nigeria'], 
+'Access to electricity (% of population)': year_access_elect['Nigeria'],
+'Mortality rate, under-5 (per 1,000 live births)': year_mort_rate['Nigeria'],
+'Methane emissions (kt of CO2 equivalent)': year_Meth_emissions['Nigeria'],
+'Urban population': year_urb_pop['Nigeria']},
+['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020'])
+
+#prints correlation for a country
+print(Nigeria.corr())
+
+def heatmap_corr(Nigeria, size=8):
+    """
+    
+    function creates heatmap of correlation matrix for earch pair of columns in the dataframe for ghana against
+    the indicators selected
+
+Input:
+     df(Nigeria): Transposed Dataframe for Ghana
+     size: vertical and horizontal size of the plot (inch)
+
+"""
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+corr = Nigeria.corr()
+fig, ax = plt.subplots(figsize=(10,5))
+ax.matshow(corr, cmap='Greens')
+#setting ticks to column names
+plt.xticks(range(len(corr.columns)), corr.columns, rotation=90)
+plt.yticks(range(len(corr.columns)), corr.columns)
+plt.show()
